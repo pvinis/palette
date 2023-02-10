@@ -1,31 +1,46 @@
 {
   "name": "palette",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build-storybook": "yarn compile-palette && yarn workspace @artsy/palette build-storybook",
-    "compile-palette": "lerna run compile",
-    "lint": "lerna run lint",
-    "start": "yarn compile-palette && concurrently --raw --kill-others 'yarn workspace @artsy/palette watch' ",
-    "storybook": "yarn compile-palette && yarn workspace @artsy/palette storybook",
-    "test": "yarn compile-palette && lerna run test",
-    "pretype-check": "yarn compile-palette && lerna run type-declarations",
-    "type-check": "lerna run type-check",
-    "visual-test": "yarn compile-palette && yarn workspace @artsy/palette visual-test"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "concurrently 'yarn:watch:*'",
+    "build-storybook": "concurrently 'yarn:build:*'",
+    "build:css": "tailwindcss -i ./src/index.css -o ./public/tailwind.css",
+    "build:storybook": "build-storybook",
+    "watch:css": "yarn build:css --watch",
+    "watch:storybook": "start-storybook -p 6006"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/artsy/palette.git"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
-  "resolutions": {
-    "webpack": "5.52.1"
+  "dependencies": {
+    "@stitches/css": "^9.0.0-alpha.8",
+    "@stitches/tailwind": "^9.0.0-alpha.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "concurrently": "4.1.0",
-    "lerna": "6.4.1"
+    "@babel/core": "^7.20.12",
+    "@babel/plugin-transform-react-display-name": "^7.18.6",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-vite": "^0.4.0",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^8.3.0",
+    "concurrently": "^7.6.0",
+    "postcss": "^8.4.21",
+    "storybook-states": "^1.2.0",
+    "tailwindcss": "^3.2.6",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vite-plugin-babel": "^1.1.3"
   }
 }
