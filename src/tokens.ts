@@ -1,4 +1,11 @@
-const colors = {
+import {
+	Config,
+	KeyValuePair,
+	RecursiveKeyValuePair,
+	ResolvableTo,
+} from "tailwindcss/types/config"
+
+const colorsNamed = {
 	black100: "#000000",
 	black60: "#707070",
 	black30: "#C2C2C2",
@@ -27,11 +34,16 @@ const colors = {
 	red150: "#510B0B",
 	red100: "#C82400",
 	red10: "#F4E4E3",
-
-	brand() {
-		this.blue100
-	},
 }
+
+const colorsRole = {
+	brand: colorsNamed.blue100,
+}
+
+export type ColorNamed = keyof typeof colorsNamed
+export type ColorRole = keyof typeof colorsRole
+export type ColorCSS = string & {}
+export type Color = ColorNamed | ColorRole | ColorCSS
 
 const spacing = {
 	0.5: "5px",
@@ -41,6 +53,7 @@ const spacing = {
 	6: "60px",
 	12: "120px",
 }
+export type SpacingUnit = keyof typeof spacing
 
 const fontFamily = {
 	sans: '"ll-unica77", "Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -65,11 +78,13 @@ const fontSize = {
 	xs: ["13px", "20px"],
 	bq: ["50px", { lineHeight: "60px", letterSpacing: "-0.01em" }],
 }
+export type TextVariant = keyof typeof fontSize
 
-export const tokens = {
-	colors,
+export const theme: Config["theme"] = {
+	extend: {},
+	colors: { ...colorsNamed, ...colorsRole },
 	spacing,
 	fontFamily,
 	screens,
-	fontSize,
+	fontSize: (fontSize as unknown) as NonNullable<Config["theme"]>["fontSize"],
 }

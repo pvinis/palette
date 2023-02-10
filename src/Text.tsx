@@ -1,8 +1,4 @@
-import resolveConfig from "tailwindcss/resolveConfig"
-import tailwindConfig from "../tailwind.config.cjs"
-
-const fullConfig = resolveConfig(tailwindConfig)
-console.log({ fullConfig })
+import { TextVariant } from "./tokens"
 
 type TextTransform =
 	| "none"
@@ -11,8 +7,6 @@ type TextTransform =
 	| "lowercase"
 	| "initial"
 	| "inherit"
-
-type TextVariant = "sm" | "md" | "lg" | "xl"
 
 type TextProps = {
 	variant?: TextVariant
